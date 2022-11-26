@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class Testdb {
 	Connection con = null;
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	String url = "jdbc:oracle:thin:@175.214.129.222:1521:XE";
 
 	public Testdb() {
 		try {
@@ -169,4 +169,18 @@ public class Testdb {
 			e.printStackTrace();
 		}
 	}
+	/*
+	public void Search(String id, String pw, String empInfo) { // 급여 관리 테이블 검색(미완성)
+		DB_Connect(id, pw);
+		try {
+			Statement stmt = con.createStatement();
+			String numStmt = "select * from 급여정보 where 사번 = '" + empInfo + "'";
+			ResultSet rs = stmt.executeQuery(numStmt);
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	*/
 }

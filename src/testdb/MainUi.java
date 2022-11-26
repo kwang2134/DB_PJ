@@ -67,7 +67,7 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 		Logout.setBounds(350, 650, 100, 50);
 		jpanel.add(Absenceb = new JButton("결근 사유 등록"));
 		Absenceb.setBounds(600, 600, 150, 50);
-
+		
 		if (EmpData[2].equals("인사")) {
 			EmpInfo.setVisible(true);
 			Salarybtn.setVisible(false);
@@ -109,6 +109,9 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 
 		Salarybtn.addActionListener(new ActionListener() { // 급여 페이지에서 쓸 급여정산 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
+				PayUI payui = new PayUI();
+				payui.setSysIdPw(id, pw);
+				/*
 				SimpleDateFormat day = new SimpleDateFormat("dd");
 				SimpleDateFormat month = new SimpleDateFormat("mm");
 				Date time = new Date();
@@ -126,7 +129,7 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 				} else {
 					JOptionPane.showMessageDialog(null, "급여 정산일이 아닙니다.");
 				}
-
+				*/
 			}
 
 		});
