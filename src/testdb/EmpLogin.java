@@ -28,7 +28,8 @@ public class EmpLogin extends JFrame { // 사원이 사번으로 로그인하는 페이지
 	}
 
 	public void EmpLogin_init() {
-		jframe.setBounds(50, 50, 800, 800); // 전체 창 크기
+		jframe.setSize(800, 800); // 전체 창 크기
+		jframe.setLocationRelativeTo(null);
 		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창 닫기 버튼 누르면 꺼지게 설정
 		jframe.setVisible(true);
 		Font EmpLogFontsz = new Font("돋움", Font.PLAIN, 30);

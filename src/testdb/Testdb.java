@@ -142,7 +142,7 @@ public class Testdb {
 		}
 	}
 
-	public int absence(String id, String pw, String EmpId, String reason, String date) { // 결근 사유 등록 preparedstatement
+	public int absence(String id, String pw, String EmpId, String date, String reason) { // 결근 사유 등록 preparedstatement
 		DB_Connect(id, pw);
 		int count = 0;
 		try {

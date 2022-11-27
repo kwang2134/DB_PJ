@@ -26,7 +26,8 @@ public class AbsenceR extends JFrame { // 결근 사유 등록 페이지
 
 	public void AbsenceR_init() {
 		Testdb tdb = new Testdb();
-		jframe.setBounds(50, 50, 400, 400); // 전체 창 크기
+		jframe.setSize(400, 400); // 전체 창 크기
+		jframe.setLocationRelativeTo(null);
 		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창 닫기 버튼 누르면 꺼지게 설정
 		jframe.setVisible(true);
 

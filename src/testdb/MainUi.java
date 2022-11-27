@@ -34,7 +34,8 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 
 	public void MainUi_init() {
 		Testdb tdb = new Testdb();
-		jframe.setBounds(50, 50, 800, 800);
+		jframe.setSize(800, 800);
+		jframe.setLocationRelativeTo(null);
 		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창 닫기 버튼 누르면 꺼지게 설정
 		jframe.setVisible(true);
 
@@ -107,29 +108,11 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 			}
 		});
 
-		Salarybtn.addActionListener(new ActionListener() { // 급여 페이지에서 쓸 급여정산 버튼 이벤트
+		Salarybtn.addActionListener(new ActionListener() { // 급여 정산 페이지로 이동
 			public void actionPerformed(ActionEvent e) {
+				jframe.dispose();
 				PayUI payui = new PayUI();
-				payui.setSysIdPw(id, pw);
-				/*
-				SimpleDateFormat day = new SimpleDateFormat("dd");
-				SimpleDateFormat month = new SimpleDateFormat("mm");
-				Date time = new Date();
-				String today = day.format(time);
-				String thisMonth = month.format(time);
-				int preMonth = Integer.parseInt(thisMonth);
-				preMonth = preMonth - 1;
-
-				int flag = tdb.isExistD(id, pw);
-				if (flag == 1) {
-					JOptionPane.showMessageDialog(null, "급여 정산이 이미 완료되었습니다.");
-				} else if (today.equals("22")) {
-					int count = tdb.insertSalary(id, pw);
-					JOptionPane.showMessageDialog(null, "사원" + count + "명의 급여가 정산되었습니다.");
-				} else {
-					JOptionPane.showMessageDialog(null, "급여 정산일이 아닙니다.");
-				}
-				*/
+				payui.setSysIdPw(id, pw, EmpData[0]);
 			}
 
 		});
@@ -147,6 +130,14 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 				AbsenceR abui = new AbsenceR();
 				abui.setSysIdPw(id, pw, EmpData[0]);
 				abui.AbsenceR_init();
+			}
+		});
+		
+		EmpInfo.addActionListener(new ActionListener() { // 직원 관리 페이지 이동
+			public void actionPerformed(ActionEvent e) {
+				jframe.dispose();
+				EmpInfoUI empui = new EmpInfoUI();
+				empui.setSysIdPw(id, pw, EmpData[0]);
 			}
 		});
 	}
