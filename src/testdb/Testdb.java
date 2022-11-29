@@ -10,9 +10,11 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.table.DefaultTableModel;
+
 public class Testdb {
 	Connection con = null;
-	String url = "jdbc:oracle:thin:@175.214.129.222:1521:XE";
+	String url = "jdbc:oracle:thin:@211.104.206.101:1521:XE";
 
 	public Testdb() {
 		try {
@@ -169,18 +171,71 @@ public class Testdb {
 			e.printStackTrace();
 		}
 	}
-	/*
-	public void Search(String id, String pw, String empInfo) { // 급여 관리 테이블 검색(미완성)
+	public DefaultTableModel PaySearchAll(String id, String pw, DefaultTableModel model) { //급여 화면 전체 직원 열람 statement
 		DB_Connect(id, pw);
 		try {
 			Statement stmt = con.createStatement();
-			String numStmt = "select * from 급여정보 where 사번 = '" + empInfo + "'";
-			ResultSet rs = stmt.executeQuery(numStmt);
+			String sql = "select * from 급여정보";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String empNum = rs.getString("사번");
+				String mon = rs.getString("월");
+				String pay = rs.getString("금액");
+				
+				Object obj[] = {empNum, mon, pay};
+				model.addRow(obj);
+			}
 			stmt.close();
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return model;
 	}
-	*/
+	public DefaultTableModel PaySearch(String id, String pw, String type, String empInfo, DefaultTableModel model) { // 급여 관리 테이블 특정 직원 열람 preparedStatement
+		DB_Connect(id, pw);
+		try {
+			PreparedStatement pstmt = con.prepareStatement("select * from 급여정보 where ? = ?");
+			pstmt.setString(1, type);
+			pstmt.setString(2, empInfo);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String empNum = rs.getString("사번");
+				String mon = rs.getString("월");
+				String pay = rs.getString("금액");
+				
+				Object obj[] = {empNum, mon, pay};
+				model.addRow(obj);
+			}
+			pstmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	public DefaultTableModel SearchAll(String id, String pw, DefaultTableModel model) { //출퇴근정보 화면 전체 직원 열람 statement
+		DB_Connect(id, pw);
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "select * from 출퇴근정보";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String empNum = rs.getString("사번");
+				String attD = rs.getString("출근일");
+				String attT = rs.getString("출근시간");
+				String leaveT = rs.getString("퇴근시간");
+				String workT = rs.getString("근무시간");
+				String overT = rs.getString("연장근무");
+				
+				Object obj[] = {empNum, attD, attT, leaveT, workT, overT};
+				model.addRow(obj);
+			}
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 }

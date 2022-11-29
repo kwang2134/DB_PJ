@@ -60,13 +60,15 @@ public class PayUI extends JFrame { //급여 관리 페이지
 		searchBtn = new JButton("검색");
 		searchBtn.addActionListener(new ActionListener() { //검색 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
+				String type = filterCBox.getSelectedItem().toString();
 				String empInfo = searchTextField.getText();
-				if ((filterCBox.getSelectedItem()).equals("사번")) {
-					
+				if (empInfo.equals(null)) { //검색창 공백이면 전체 출력
+					model = tdb.PaySearchAll(id, pw, model);
 				}
-				else if ((filterCBox.getSelectedItem()).equals("이름")) {
-					
+				else {
+					model = tdb.PaySearch(id, pw, type, empInfo, model);
 				}
+				payTable.repaint();
 			}
 		});
 		functionPane.add(searchBtn);

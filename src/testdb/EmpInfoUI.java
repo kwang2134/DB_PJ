@@ -30,6 +30,8 @@ JFrame frame = new JFrame();
 	private String EmpId;
 	
 	public EmpInfoUI() {
+		Testdb tdb = new Testdb();
+		
 		frame.setTitle("직원 관리");
 		frame.setResizable(false);
 		frame.setSize(500,510);
@@ -60,19 +62,14 @@ JFrame frame = new JFrame();
 		searchBtn = new JButton("검색");
 		searchBtn.addActionListener(new ActionListener() { //검색 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
-				String empInfo = searchTextField.getText();
-				if ((filterCBox.getSelectedItem()).equals("사번")) {
-					
-				}
-				else if ((filterCBox.getSelectedItem()).equals("이름")) {
-					
-				}
+				model = tdb.SearchAll(id, pw, model); //전체 직원 출퇴근정보 모델에 저장
+				empTable.repaint(); //테이블 재출력
 			}
 		});
 		functionPane.add(searchBtn);
 		
 		editBtn = new JButton("수정");
-		editBtn.addActionListener(new ActionListener() {
+		editBtn.addActionListener(new ActionListener() { //수정 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
 				
 			}
@@ -80,7 +77,7 @@ JFrame frame = new JFrame();
 		functionPane.add(editBtn);
 		
 		backBtn = new JButton("뒤로가기");
-		backBtn.addActionListener(new ActionListener() {
+		backBtn.addActionListener(new ActionListener() { // 뒤로가기 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
 				MainUi mainui = new MainUi();
 				mainui.setData(id, pw, EmpId);
