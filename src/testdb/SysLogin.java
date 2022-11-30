@@ -74,6 +74,7 @@ public class SysLogin extends JFrame { // DB로그인을 위한 페이지
 					jframe.dispose();
 					EmpLogin emplog = new EmpLogin();
 					emplog.setSysIdPw(id, pw); // DB id,pw 정보 넘겨주는 부분
+					emplog.EmpLogin_init();
 
 				}
 			}
@@ -81,3 +82,4 @@ public class SysLogin extends JFrame { // DB로그인을 위한 페이지
 
 	}
 }
+

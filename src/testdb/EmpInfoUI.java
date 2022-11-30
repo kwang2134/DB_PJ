@@ -27,8 +27,8 @@ JFrame frame = new JFrame();
 	private String[] colName = {"사번", "출근일", "출근시간", "퇴근시간", "근무시간", "연장근무"};
 	private String id;
 	private String pw;
-	private String EmpId;
-	
+	private String[] EmpData;
+
 	public EmpInfoUI() {
 		Testdb tdb = new Testdb();
 		
@@ -90,9 +90,9 @@ JFrame frame = new JFrame();
 		frame.setVisible(true);
 	}
 	
-	public void setSysIdPw(String sid, String spw, String EmpId) {
+	public void setSysIdPw(String sid, String spw, String[] EmpData) {
 		this.id = sid;
 		this.pw = spw;
-		this.EmpId = EmpId;
+		this.EmpData = EmpData;
 	}
 }

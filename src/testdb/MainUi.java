@@ -47,8 +47,6 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 		MainUiLabel.setFont(MainUiFontsz);
 		MainUiLabel.setBounds(300, 150, 300, 100);
 
-		EmpData = tdb.EmpLogin(id, pw, MEmpId);
-
 		jpanel.add(EmpNameLabel = new JLabel(EmpData[1] + "님 반갑습니다"));
 		EmpNameLabel.setBounds(10, 10, 150, 50);
 		jpanel.add(attendtimeLabel = new JLabel(attendtime));
@@ -68,12 +66,15 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 		Logout.setBounds(350, 650, 100, 50);
 		jpanel.add(Absenceb = new JButton("결근 사유 등록"));
 		Absenceb.setBounds(600, 600, 150, 50);
-		
+
 		if (EmpData[2].equals("인사")) {
 			EmpInfo.setVisible(true);
 			Salarybtn.setVisible(false);
 		} else if (EmpData[2].equals("재무")) {
 			Salarybtn.setVisible(true);
+			EmpInfo.setVisible(false);
+		} else if (EmpData[2] == null) {
+			Salarybtn.setVisible(false);
 			EmpInfo.setVisible(false);
 		} else {
 			Salarybtn.setVisible(false);
@@ -101,10 +102,14 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 		leaveb.addActionListener(new ActionListener() { // 퇴근 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat leavet = new SimpleDateFormat("HH:mm");
+				SimpleDateFormat leaveDb = new SimpleDateFormat("YYYY/MM/dd");
+				String leaveDateDb = "";
 				Date time = new Date();
 				leavetime = leavet.format(time);
+				leaveDateDb = leaveDb.format(time);
 				leavetimeLabel.setText(leavetime);
-				// tdb.leave(id, pw, leavetime); DB 프로시저 호출 함수
+				int eid = Integer.parseInt(EmpData[0]);
+				tdb.leave(id, pw, eid, leaveDateDb); // DB 프로시저 호출 함수
 			}
 		});
 
@@ -112,7 +117,7 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 			public void actionPerformed(ActionEvent e) {
 				jframe.dispose();
 				PayUI payui = new PayUI();
-				payui.setSysIdPw(id, pw, EmpData[0]);
+				payui.setSysIdPw(id, pw, EmpData);
 			}
 
 		});
@@ -122,6 +127,7 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 				jframe.dispose();
 				EmpLogin emplog = new EmpLogin();
 				emplog.setSysIdPw(id, pw);
+				emplog.EmpLogin_init();
 			}
 		});
 
@@ -132,20 +138,20 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 				abui.AbsenceR_init();
 			}
 		});
-		
+
 		EmpInfo.addActionListener(new ActionListener() { // 직원 관리 페이지 이동
 			public void actionPerformed(ActionEvent e) {
 				jframe.dispose();
 				EmpInfoUI empui = new EmpInfoUI();
-				empui.setSysIdPw(id, pw, EmpData[0]);
+				empui.setSysIdPw(id, pw, EmpData);
 			}
 		});
 	}
 
-	public void setData(String sid, String spw, String empid) { // DB id,pw 정보
+	public void setData(String sid, String spw, String[] empdata) { // DB id,pw 정보
 		this.id = sid;
 		this.pw = spw;
-		this.MEmpId = empid;
+		this.EmpData = empdata;
 
 	}
 

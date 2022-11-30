@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Testdb {
 	Connection con = null;
-	String url = "jdbc:oracle:thin:@211.104.206.101:1521:XE";
+	String url = "jdbc:oracle:thin:@211.104.206.101:1521:XE";;
 
 	public Testdb() {
 		try {
@@ -81,10 +81,12 @@ public class Testdb {
 		return count;
 	}
 
-	public String[] EmpLogin(String id, String password, String EmpId) { // 사원 정보 반환 함수 [0] 사번 [1] 이름 [2] 부서
+	public String[] EmpLogin(String id, String password, String EmpId, String EmpPw) { // 사원 정보 반환 함수 [0] 사번 [1] 이름 [2]
+																						// // 부서
 		String EmpData[] = new String[3];
 		String EmpName = "";
 		String EmpDept = "";
+		String EmpPwDB = "";
 		DB_Connect(id, password);
 		boolean exist;
 		try {
@@ -92,15 +94,19 @@ public class Testdb {
 			String sql = "select 사번 from 사원 where 사번 ='" + EmpId + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			exist = rs.next();
-			if (exist) {
-				String sql1 = "select 이름, 부서 from 사원 where 사번 = '" + EmpId + "'";
+			if (!exist) {
+				EmpId = "Not Found";
+			} else if (exist) {
+				String sql1 = "select 이름, 부서, 비밀번호 from 사원 where 사번 = '" + EmpId + "'";
 				ResultSet rs1 = stmt.executeQuery(sql1);
 				while (rs1.next()) {
 					EmpName = rs1.getString("이름");
 					EmpDept = rs1.getString("부서");
+					EmpPwDB = rs1.getString("비밀번호");
 				}
-			} else {
-				EmpId = "Not Found";
+				if (!EmpPwDB.equals(EmpPw)) {
+					EmpId = "Wrong Pw";
+				}
 			}
 			stmt.close();
 			rs.close();
@@ -132,11 +138,12 @@ public class Testdb {
 		return count;
 	}
 
-	public void leave(String id, String pw, String leavetime) { // 퇴근 callablestatement
+	public void leave(String id, String pw, int EID, String leaveDate) { // 퇴근 callablestatement
 		DB_Connect(id, pw);
 		try {
-			CallableStatement cstmt = con.prepareCall("{퇴근 프로시저[(?)]}");
-			cstmt.setString(1, leavetime);
+			CallableStatement cstmt = con.prepareCall("{call WORKTIME_UPDATE(?,?)}");
+			cstmt.setInt(1, EID);
+			cstmt.setString(2, leaveDate);
 			cstmt.executeUpdate();
 			cstmt.close();
 		} catch (SQLException e) {
@@ -164,14 +171,15 @@ public class Testdb {
 	public void NoReason(String id, String pw) { // 무단 결근 프로시저 호출 callablestatement
 		DB_Connect(id, pw);
 		try {
-			CallableStatement cstmt = con.prepareCall("{무단 결근 프로시저}");
+			CallableStatement cstmt = con.prepareCall("{call ABSENCE_CHECK}");
 			cstmt.executeUpdate();
 			cstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	public DefaultTableModel PaySearchAll(String id, String pw, DefaultTableModel model) { //급여 화면 전체 직원 열람 statement
+
+	public DefaultTableModel PaySearchAll(String id, String pw, DefaultTableModel model) { // 급여 화면 전체 직원 열람 statement
 		DB_Connect(id, pw);
 		try {
 			Statement stmt = con.createStatement();
@@ -181,8 +189,8 @@ public class Testdb {
 				String empNum = rs.getString("사번");
 				String mon = rs.getString("월");
 				String pay = rs.getString("금액");
-				
-				Object obj[] = {empNum, mon, pay};
+
+				Object obj[] = { empNum, mon, pay };
 				model.addRow(obj);
 			}
 			stmt.close();
@@ -192,7 +200,14 @@ public class Testdb {
 		}
 		return model;
 	}
-	public DefaultTableModel PaySearch(String id, String pw, String type, String empInfo, DefaultTableModel model) { // 급여 관리 테이블 특정 직원 열람 preparedStatement
+
+	public DefaultTableModel PaySearch(String id, String pw, String type, String empInfo, DefaultTableModel model) { // 급여
+																														// 관리
+																														// 테이블
+																														// 특정
+																														// 직원
+																														// 열람
+																														// preparedStatement
 		DB_Connect(id, pw);
 		try {
 			PreparedStatement pstmt = con.prepareStatement("select * from 급여정보 where ? = ?");
@@ -203,8 +218,8 @@ public class Testdb {
 				String empNum = rs.getString("사번");
 				String mon = rs.getString("월");
 				String pay = rs.getString("금액");
-				
-				Object obj[] = {empNum, mon, pay};
+
+				Object obj[] = { empNum, mon, pay };
 				model.addRow(obj);
 			}
 			pstmt.close();
@@ -214,7 +229,8 @@ public class Testdb {
 		}
 		return model;
 	}
-	public DefaultTableModel SearchAll(String id, String pw, DefaultTableModel model) { //출퇴근정보 화면 전체 직원 열람 statement
+
+	public DefaultTableModel SearchAll(String id, String pw, DefaultTableModel model) { // 출퇴근정보 화면 전체 직원 열람 statement
 		DB_Connect(id, pw);
 		try {
 			Statement stmt = con.createStatement();
@@ -227,8 +243,8 @@ public class Testdb {
 				String leaveT = rs.getString("퇴근시간");
 				String workT = rs.getString("근무시간");
 				String overT = rs.getString("연장근무");
-				
-				Object obj[] = {empNum, attD, attT, leaveT, workT, overT};
+
+				Object obj[] = { empNum, attD, attT, leaveT, workT, overT };
 				model.addRow(obj);
 			}
 			stmt.close();
