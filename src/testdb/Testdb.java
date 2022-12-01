@@ -64,15 +64,20 @@ public class Testdb {
 
 	public int insertSalary(String id, String password) { // 급여 정보 statement
 		int count = 0;
+		SimpleDateFormat year = new SimpleDateFormat("YYYY");
 		SimpleDateFormat month = new SimpleDateFormat("MM");
 		Date time = new Date();
+		String thisYear = year.format(time);
 		String thisMonth = month.format(time);
 		int preMonth = Integer.parseInt(thisMonth);
 		preMonth = preMonth - 1;
+		String MonthDb = Integer.toString(preMonth);
+		String forDbDate = thisYear + "/" + MonthDb;
+		System.out.println(forDbDate);
 		DB_Connect(id, password);
 		try {
 			Statement stmt = con.createStatement();
-			String sql2 = "insert all into 급여정보 values (사번,'" + preMonth + "',null) select 사번 from 사원";
+			String sql2 = "insert all into 급여정보 values (사번,'" + forDbDate + "',null) select 사번 from 사원";
 			count = stmt.executeUpdate(sql2);
 			stmt.close();
 		} catch (SQLException e) {
