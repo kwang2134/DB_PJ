@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Testdb {
 	Connection con = null;
-	String url = "jdbc:oracle:thin:@211.104.206.101:1521:XE";;
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";;
 
 	public Testdb() {
 		try {
@@ -216,9 +216,9 @@ public class Testdb {
 																														// preparedStatement
 		DB_Connect(id, pw);
 		try {
-			PreparedStatement pstmt = con.prepareStatement("select * from 급여정보 where ? = ?");
-			pstmt.setString(1, type);
-			pstmt.setString(2, empInfo);
+			String sql = "select 급여정보.사번, 월, 금액 from 급여정보, 사원 where 사원.사번 = 급여정보.사번 and 사원."+ type +" = ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, empInfo);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				String empNum = rs.getString("사번");
@@ -236,28 +236,17 @@ public class Testdb {
 		return model;
 	}
 
-	public DefaultTableModel SearchAll(String id, String pw, DefaultTableModel model) { // 출퇴근정보 화면 전체 직원 열람 statement
-		DB_Connect(id, pw);
-		try {
-			Statement stmt = con.createStatement();
-			String sql = "select * from 출퇴근정보";
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				String empNum = rs.getString("사번");
-				String attD = rs.getString("출근일");
-				String attT = rs.getString("출근시간");
-				String leaveT = rs.getString("퇴근시간");
-				String workT = rs.getString("근무시간");
-				String overT = rs.getString("연장근무");
-
-				Object obj[] = { empNum, attD, attT, leaveT, workT, overT };
-				model.addRow(obj);
-			}
-			stmt.close();
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return model;
-	}
+	/*
+	 * public DefaultTableModel SearchAll(String id, String pw, DefaultTableModel
+	 * model) { // 출퇴근정보 화면 전체 직원 열람 statement DB_Connect(id, pw); try { Statement
+	 * stmt = con.createStatement(); String sql = "select * from 출퇴근정보"; ResultSet
+	 * rs = stmt.executeQuery(sql); while (rs.next()) { String empNum =
+	 * rs.getString("사번"); String attD = rs.getString("출근일"); String attT =
+	 * rs.getString("출근시간"); String leaveT = rs.getString("퇴근시간"); String workT =
+	 * rs.getString("근무시간"); String overT = rs.getString("연장근무");
+	 * 
+	 * Object obj[] = { empNum, attD, attT, leaveT, workT, overT };
+	 * model.addRow(obj); } stmt.close(); rs.close(); } catch (SQLException e) {
+	 * e.printStackTrace(); } return model; }
+	 */
 }

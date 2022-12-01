@@ -70,14 +70,14 @@ public class PayUI extends JFrame { // 급여 관리 페이지
 		searchBtn = new JButton("검색");
 		searchBtn.addActionListener(new ActionListener() { // 검색 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
+				model.setNumRows(0);
 				String type = filterCBox.getSelectedItem().toString();
 				String empInfo = searchTextField.getText();
-				if (empInfo.equals(null)) { // 검색창 공백이면 전체 출력
+				if (empInfo == null || empInfo.length() == 0) { // 검색창 공백이면 전체 출력
 					model = tdb.PaySearchAll(id, pw, model);
 				} else {
 					model = tdb.PaySearch(id, pw, type, empInfo, model);
 				}
-				payTable.repaint();
 			}
 		});
 		functionPane.add(searchBtn);
@@ -116,7 +116,7 @@ public class PayUI extends JFrame { // 급여 관리 페이지
 			}
 		});
 		functionPane.add(backBtn);
-
+		
 		frame.setVisible(true);
 	}
 

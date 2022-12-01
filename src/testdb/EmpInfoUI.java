@@ -62,9 +62,9 @@ JFrame frame = new JFrame();
 		searchBtn = new JButton("검색");
 		searchBtn.addActionListener(new ActionListener() { //검색 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
-				model = tdb.SearchAll(id, pw, model); //전체 직원 출퇴근정보 모델에 저장
-				empTable.repaint(); //테이블 재출력
-			}
+				/*
+				 * model.setNumRows(0); model = tdb.SearchAll(id, pw, model); //전체 직원 출퇴근정보 모델에 저장
+				 */			}
 		});
 		functionPane.add(searchBtn);
 		
@@ -80,7 +80,7 @@ JFrame frame = new JFrame();
 		backBtn.addActionListener(new ActionListener() { // 뒤로가기 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
 				MainUi mainui = new MainUi();
-				mainui.setData(id, pw, EmpId);
+				mainui.setData(id, pw, EmpData);
 				mainui.MainUi_init();
 				frame.dispose();
 			}
