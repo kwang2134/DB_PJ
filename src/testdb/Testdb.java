@@ -173,10 +173,11 @@ public class Testdb {
 		return count;
 	}
 
-	public void NoReason(String id, String pw) { // 무단 결근 프로시저 호출 callablestatement
+	public void NoReason(String id, String pw, String date) { // 무단 결근 프로시저 호출 callablestatement
 		DB_Connect(id, pw);
 		try {
-			CallableStatement cstmt = con.prepareCall("{call ABSENCE_CHECK}");
+			CallableStatement cstmt = con.prepareCall("{call ABSENCE_CHECK(?)}");
+			cstmt.setString(1, date);
 			cstmt.executeUpdate();
 			cstmt.close();
 		} catch (SQLException e) {

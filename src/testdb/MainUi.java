@@ -21,6 +21,7 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 	JButton leaveb;
 	JButton Logout;
 	JButton Absenceb;
+	JButton AbsenceCheckb;
 	JLabel MainUiLabel;
 	JLabel EmpNameLabel;
 	JLabel attendtimeLabel;
@@ -58,6 +59,8 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 		Salarybtn.setBounds(600, 70, 100, 30);
 		jpanel.add(EmpInfo = new JButton("사원 정보"));
 		EmpInfo.setBounds(600, 70, 100, 30);
+		jpanel.add(AbsenceCheckb = new JButton("무단 결근 체크"));
+		AbsenceCheckb.setBounds(600, 120, 150, 30);
 		jpanel.add(attendb = new JButton("출근"));
 		attendb.setBounds(250, 350, 100, 50);
 		jpanel.add(leaveb = new JButton("퇴근"));
@@ -69,15 +72,19 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 
 		if (EmpData[2].equals("인사")) {
 			EmpInfo.setVisible(true);
+			AbsenceCheckb.setVisible(true);
 			Salarybtn.setVisible(false);
 		} else if (EmpData[2].equals("재무")) {
 			Salarybtn.setVisible(true);
+			AbsenceCheckb.setVisible(false);
 			EmpInfo.setVisible(false);
 		} else if (EmpData[2] == null) {
 			Salarybtn.setVisible(false);
 			EmpInfo.setVisible(false);
+			AbsenceCheckb.setVisible(false);
 		} else {
 			Salarybtn.setVisible(false);
+			AbsenceCheckb.setVisible(false);
 			EmpInfo.setVisible(false);
 		}
 		attendb.addActionListener(new ActionListener() { // 출근 버튼 이벤트
@@ -121,6 +128,13 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 			}
 
 		});
+		AbsenceCheckb.addActionListener(new ActionListener() { // 출근 버튼 이벤트
+			public void actionPerformed(ActionEvent e) {
+				AbsenceCheckUI absUI = new AbsenceCheckUI();
+				absUI.setSysIdPw(id, pw);
+				absUI.AbsenceCheckUI_init();
+			}
+		});
 
 		Logout.addActionListener(new ActionListener() { // 로그아웃 사원 로그인 페이지로 이동
 			public void actionPerformed(ActionEvent e) {
@@ -135,7 +149,7 @@ public class MainUi extends JFrame { // 사원 메인 페이지
 			public void actionPerformed(ActionEvent e) {
 				AbsenceR abui = new AbsenceR();
 				abui.setSysIdPw(id, pw, EmpData[0]);
-				abui.AbsenceR_init();
+
 			}
 		});
 
