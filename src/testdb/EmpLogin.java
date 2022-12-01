@@ -65,8 +65,8 @@ public class EmpLogin extends JFrame { // 사원이 사번으로 로그인하는 페이지
 					Character.toString(ch);
 					EmpPw += (EmpPw.equals("")) ? "" + ch + "" : "" + ch + "";
 				}
-				if (EmpPw.equals("")) {
-					JOptionPane.showMessageDialog(null, "비밀 번호가 입력되지 않았습니다.");
+				if (EmpPw.equals("") || Empid.equals("")) {
+					JOptionPane.showMessageDialog(null, "필수 입력 사항이 입력되지 않았습니다.");
 				} else {
 					String[] EmpData = tdb.EmpLogin(id, pw, Empid, EmpPw);
 					if (EmpData[0].equals("Not Found")) {
