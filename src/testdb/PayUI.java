@@ -96,7 +96,7 @@ public class PayUI extends JFrame { // 급여 관리 페이지
 				int flag = tdb.isExistD(id, pw);
 				if (flag == 1) {
 					JOptionPane.showMessageDialog(null, "급여 정산이 이미 완료되었습니다.");
-				} else if (today.equals("1")) {
+				} else if (today.equals("01")) {
 					int count = tdb.insertSalary(id, pw);
 					JOptionPane.showMessageDialog(null, "사원" + count + "명의 급여가 정산되었습니다.");
 				} else {
