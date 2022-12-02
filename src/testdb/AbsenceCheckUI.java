@@ -39,6 +39,7 @@ public class AbsenceCheckUI extends JFrame {
 		commitbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tdb.NoReason(id, pw, absTextField.getText());
+				JOptionPane.showMessageDialog(null, "무단 결근 체크가 완료되었습니다");
 			}
 		});
 	}
