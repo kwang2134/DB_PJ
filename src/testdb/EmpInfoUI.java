@@ -23,8 +23,8 @@ JFrame frame = new JFrame();
 	private JButton editBtn;
 	private JButton backBtn;
 	
-	private String[] searchOpt = {"»ç¹ø", "ÀÌ¸§"};
-	private String[] colName = {"»ç¹ø", "Ãâ±ÙÀÏ", "Ãâ±Ù½Ã°£", "Åğ±Ù½Ã°£", "±Ù¹«½Ã°£", "¿¬Àå±Ù¹«"};
+	private String[] searchOpt = {"ì‚¬ë²ˆ", "ì´ë¦„"};
+	private String[] colName = {"ì‚¬ë²ˆ", "ì¶œê·¼ì¼", "ì¶œê·¼ì‹œê°„", "í‡´ê·¼ì‹œê°„", "ê·¼ë¬´ì‹œê°„", "ì—°ì¥ê·¼ë¬´"};
 	private String id;
 	private String pw;
 	private String[] EmpData;
@@ -32,7 +32,7 @@ JFrame frame = new JFrame();
 	public EmpInfoUI() {
 		Testdb tdb = new Testdb();
 		
-		frame.setTitle("Á÷¿ø °ü¸®");
+		frame.setTitle("ì§ì› ê´€ë¦¬");
 		frame.setResizable(false);
 		frame.setSize(500,510);
 		frame.setLocationRelativeTo(null);
@@ -59,25 +59,32 @@ JFrame frame = new JFrame();
 		searchTextField = new JTextField(10);
 		functionPane.add(searchTextField);
 		
-		searchBtn = new JButton("°Ë»ö");
-		searchBtn.addActionListener(new ActionListener() { //°Ë»ö ¹öÆ° ÀÌº¥Æ®
+		searchBtn = new JButton("ê²€ìƒ‰");
+		searchBtn.addActionListener(new ActionListener() { //ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * model.setNumRows(0); model = tdb.SearchAll(id, pw, model); //ÀüÃ¼ Á÷¿ø ÃâÅğ±ÙÁ¤º¸ ¸ğµ¨¿¡ ÀúÀå
-				 */			}
+
+				model.setNumRows(0);
+				String type = filterCBox.getSelectedItem().toString();
+				String empInfo = searchTextField.getText();
+				if (empInfo == null || empInfo.length() == 0) { // ê²€ìƒ‰ì°½ ê³µë°±ì´ë©´ ì „ì²´ ì¶œë ¥
+					model = tdb.SearchAll(id, pw, model);
+				} else {
+					model = tdb.Search(id, pw, type, empInfo, model);
+				}
+			}
 		});
 		functionPane.add(searchBtn);
 		
-		editBtn = new JButton("¼öÁ¤");
-		editBtn.addActionListener(new ActionListener() { //¼öÁ¤ ¹öÆ° ÀÌº¥Æ®
+		editBtn = new JButton("ìˆ˜ì •");
+		editBtn.addActionListener(new ActionListener() { //ìˆ˜ì • ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				
 			}
 		});
 		functionPane.add(editBtn);
 		
-		backBtn = new JButton("µÚ·Î°¡±â");
-		backBtn.addActionListener(new ActionListener() { // µÚ·Î°¡±â ¹öÆ° ÀÌº¥Æ®
+		backBtn = new JButton("ë’¤ë¡œê°€ê¸°");
+		backBtn.addActionListener(new ActionListener() { // ë’¤ë¡œê°€ê¸° ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				MainUi mainui = new MainUi();
 				mainui.setData(id, pw, EmpData);
@@ -94,5 +101,10 @@ JFrame frame = new JFrame();
 		this.id = sid;
 		this.pw = spw;
 		this.EmpData = EmpData;
+	}
+	
+	public void EmpInfoUI_init() {
+		Testdb tdb = new Testdb();
+		model = tdb.SearchAll(id, pw, model);
 	}
 }

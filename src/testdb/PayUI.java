@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class PayUI extends JFrame { // ±Ş¿© °ü¸® ÆäÀÌÁö
+public class PayUI extends JFrame { // ê¸‰ì—¬ ê´€ë¦¬ í˜ì´ì§€
 	JFrame frame = new JFrame();
 
 	private Container tablePane;
@@ -31,15 +31,15 @@ public class PayUI extends JFrame { // ±Ş¿© °ü¸® ÆäÀÌÁö
 	private JButton settelmentBtn;
 	private JButton backBtn;
 
-	private String[] searchOpt = { "»ç¹ø", "ÀÌ¸§" };
-	private String[] colName = { "»ç¹ø", "¿ù", "±İ¾×" };
+	private String[] searchOpt = { "ì‚¬ë²ˆ", "ì´ë¦„" };
+	private String[] colName = { "ì‚¬ë²ˆ", "ì›”", "ê¸ˆì•¡" };
 	private String id;
 	private String pw;
 	private String[] EmpData;
 
 	public PayUI() {
 		Testdb tdb = new Testdb();
-		frame.setTitle("±Ş¿© °ü¸®");
+		frame.setTitle("ê¸‰ì—¬ ê´€ë¦¬");
 		frame.setResizable(false);
 		frame.setSize(500, 510);
 		frame.setLocationRelativeTo(null);
@@ -67,13 +67,13 @@ public class PayUI extends JFrame { // ±Ş¿© °ü¸® ÆäÀÌÁö
 		searchTextField = new JTextField(10);
 		functionPane.add(searchTextField);
 
-		searchBtn = new JButton("°Ë»ö");
-		searchBtn.addActionListener(new ActionListener() { // °Ë»ö ¹öÆ° ÀÌº¥Æ®
+		searchBtn = new JButton("ê²€ìƒ‰");
+		searchBtn.addActionListener(new ActionListener() { // ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				model.setNumRows(0);
 				String type = filterCBox.getSelectedItem().toString();
 				String empInfo = searchTextField.getText();
-				if (empInfo == null || empInfo.length() == 0) { // °Ë»öÃ¢ °ø¹éÀÌ¸é ÀüÃ¼ Ãâ·Â
+				if (empInfo == null || empInfo.length() == 0) { // ê²€ìƒ‰ì°½ ê³µë°±ì´ë©´ ì „ì²´ ì¶œë ¥
 					model = tdb.PaySearchAll(id, pw, model);
 				} else {
 					model = tdb.PaySearch(id, pw, type, empInfo, model);
@@ -82,8 +82,8 @@ public class PayUI extends JFrame { // ±Ş¿© °ü¸® ÆäÀÌÁö
 		});
 		functionPane.add(searchBtn);
 
-		settelmentBtn = new JButton("Á¤»ê");
-		settelmentBtn.addActionListener(new ActionListener() { // Á¤»ê ¹öÆ° ÀÌº¥Æ®
+		settelmentBtn = new JButton("ì •ì‚°");
+		settelmentBtn.addActionListener(new ActionListener() { // ì •ì‚° ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat day = new SimpleDateFormat("dd");
 				SimpleDateFormat month = new SimpleDateFormat("mm");
@@ -95,19 +95,19 @@ public class PayUI extends JFrame { // ±Ş¿© °ü¸® ÆäÀÌÁö
 
 				int flag = tdb.isExistD(id, pw);
 				if (flag == 1) {
-					JOptionPane.showMessageDialog(null, "±Ş¿© Á¤»êÀÌ ÀÌ¹Ì ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "ê¸‰ì—¬ ì •ì‚°ì´ ì´ë¯¸ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} else if (today.equals("01")) {
 					int count = tdb.insertSalary(id, pw);
-					JOptionPane.showMessageDialog(null, "»ç¿ø" + count + "¸íÀÇ ±Ş¿©°¡ Á¤»êµÇ¾ú½À´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "ì‚¬ì›" + count + "ëª…ì˜ ê¸‰ì—¬ê°€ ì •ì‚°ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} else {
-					JOptionPane.showMessageDialog(null, "±Ş¿© Á¤»êÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "ê¸‰ì—¬ ì •ì‚°ì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
 				}
 			}
 		});
 		functionPane.add(settelmentBtn);
 
-		backBtn = new JButton("µÚ·Î°¡±â");
-		backBtn.addActionListener(new ActionListener() { // µÚ·Î°¡±â(¸ŞÀÎÈ­¸é) ¹öÆ° ÀÌº¥Æ®
+		backBtn = new JButton("ë’¤ë¡œê°€ê¸°");
+		backBtn.addActionListener(new ActionListener() { // ë’¤ë¡œê°€ê¸°(ë©”ì¸í™”ë©´) ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				MainUi mainui = new MainUi();
 				mainui.setData(id, pw, EmpData);
@@ -124,5 +124,10 @@ public class PayUI extends JFrame { // ±Ş¿© °ü¸® ÆäÀÌÁö
 		this.id = sid;
 		this.pw = spw;
 		this.EmpData = Empdata;
+	}
+	
+	public void PayUI_init() {
+		Testdb tdb = new Testdb();
+		model = tdb.PaySearchAll(id, pw, model);
 	}
 }

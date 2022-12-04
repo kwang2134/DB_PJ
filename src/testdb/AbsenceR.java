@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AbsenceR extends JFrame { // °á±Ù »çÀ¯ µî·Ï ÆäÀÌÁö
+public class AbsenceR extends JFrame { // ê²°ê·¼ ì‚¬ìœ  ë“±ë¡ í˜ì´ì§€
 	JFrame jframe = new JFrame();
 	JPanel jpanel = new JPanel();
 
@@ -26,22 +26,22 @@ public class AbsenceR extends JFrame { // °á±Ù »çÀ¯ µî·Ï ÆäÀÌÁö
 
 	public void AbsenceR_init() {
 		Testdb tdb = new Testdb();
-		jframe.setSize(400, 400); // ÀüÃ¼ Ã¢ Å©±â
+		jframe.setSize(400, 400); // ì „ì²´ ì°½ í¬ê¸°
 		jframe.setLocationRelativeTo(null);
-		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Ã¢ ´İ±â ¹öÆ° ´©¸£¸é ²¨Áö°Ô ¼³Á¤
+		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ì°½ ë‹«ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´ êº¼ì§€ê²Œ ì„¤ì •
 		jframe.setVisible(true);
 
 		jpanel.setLayout(null);
 		jframe.add(jpanel);
 
-		jpanel.add(reasonLabel = new JLabel("°á±Ù »çÀ¯"));
+		jpanel.add(reasonLabel = new JLabel("ê²°ê·¼ ì‚¬ìœ "));
 		reasonLabel.setBounds(170, 30, 80, 30);
 		jpanel.add(reasonTextField = new JTextField());
 		reasonTextField.setBounds(60, 80, 280, 180);
-		jpanel.add(commitReason = new JButton("µî·Ï"));
+		jpanel.add(commitReason = new JButton("ë“±ë¡"));
 		commitReason.setBounds(170, 300, 100, 50);
 
-		commitReason.addActionListener(new ActionListener() { // °á±Ù »çÀ¯ µî·Ï ¹öÆ° ÀÌº¥Æ®
+		commitReason.addActionListener(new ActionListener() { // ê²°ê·¼ ì‚¬ìœ  ë“±ë¡ ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat abdate = new SimpleDateFormat("YYYY/MM/dd");
 				String date = "";
@@ -49,9 +49,9 @@ public class AbsenceR extends JFrame { // °á±Ù »çÀ¯ µî·Ï ÆäÀÌÁö
 				date = abdate.format(time);
 				int flag = tdb.absence(id, pw, EmpId, date, reasonTextField.getText());
 				if (flag == 1) {
-					JOptionPane.showMessageDialog(null, "°á±Ù »çÀ¯°¡ µî·ÏµÇ¾ú½À´Ï´Ù");
+					JOptionPane.showMessageDialog(null, "ê²°ê·¼ ì‚¬ìœ ê°€ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤");
 				} else {
-					JOptionPane.showMessageDialog(null, "ÀÌ¹Ì »çÀ¯°¡ µî·ÏµÇ¾ú½À´Ï´Ù");
+					JOptionPane.showMessageDialog(null, "ì´ë¯¸ ì‚¬ìœ ê°€ ë“±ë¡ë˜ì—ˆìŠµë‹ˆë‹¤");
 				}
 			}
 		});

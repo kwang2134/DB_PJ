@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class EmpLogin extends JFrame { // »ç¿øÀÌ »ç¹øÀ¸·Î ·Î±×ÀÎÇÏ´Â ÆäÀÌÁö
+public class EmpLogin extends JFrame { // ì‚¬ì›ì´ ì‚¬ë²ˆìœ¼ë¡œ ë¡œê·¸ì¸í•˜ëŠ” í˜ì´ì§€
 	JFrame jframe = new JFrame();
 	JPanel jpanel = new JPanel();
 
@@ -28,16 +28,16 @@ public class EmpLogin extends JFrame { // »ç¿øÀÌ »ç¹øÀ¸·Î ·Î±×ÀÎÇÏ´Â ÆäÀÌÁö
 	String EmpPw = "";
 
 	public void EmpLogin_init() {
-		jframe.setSize(800, 800); // ÀüÃ¼ Ã¢ Å©±â
+		jframe.setSize(800, 800); // ì „ì²´ ì°½ í¬ê¸°
 		jframe.setLocationRelativeTo(null);
-		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Ã¢ ´İ±â ¹öÆ° ´©¸£¸é ²¨Áö°Ô ¼³Á¤
+		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ì°½ ë‹«ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´ êº¼ì§€ê²Œ ì„¤ì •
 		jframe.setVisible(true);
-		Font EmpLogFontsz = new Font("µ¸¿ò", Font.PLAIN, 30);
+		Font EmpLogFontsz = new Font("ë‹ì›€", Font.PLAIN, 30);
 
 		jpanel.setLayout(null);
 		jframe.add(jpanel);
 
-		jpanel.add(EmpLog = new JLabel("»ç¿ø ·Î±×ÀÎ"));
+		jpanel.add(EmpLog = new JLabel("ì‚¬ì› ë¡œê·¸ì¸"));
 		EmpLog.setFont(EmpLogFontsz);
 		EmpLog.setBounds(300, 150, 300, 200);
 
@@ -46,17 +46,17 @@ public class EmpLogin extends JFrame { // »ç¿øÀÌ »ç¹øÀ¸·Î ·Î±×ÀÎÇÏ´Â ÆäÀÌÁö
 		jpanel.add(EmpPwField = new JPasswordField());
 		EmpPwField.setBounds(350, 400, 150, 30);
 
-		jpanel.add(IdLabel = new JLabel("»ç¹ø"));
+		jpanel.add(IdLabel = new JLabel("ì‚¬ë²ˆ"));
 		IdLabel.setBounds(300, 350, 30, 30);
-		jpanel.add(PwLabel = new JLabel("ºñ¹Ğ¹øÈ£"));
+		jpanel.add(PwLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸"));
 		PwLabel.setBounds(280, 400, 60, 30);
 
-		jpanel.add(EmpLoginb = new JButton("·Î±×ÀÎ"));
+		jpanel.add(EmpLoginb = new JButton("ë¡œê·¸ì¸"));
 		EmpLoginb.setBounds(300, 450, 200, 30);
 
 		Testdb tdb = new Testdb();
 
-		EmpLoginb.addActionListener(new ActionListener() { // »ç¿ø Á¤º¸ ¹İÈ¯ ÇÔ¼ö·Î ·Î±×ÀÎ
+		EmpLoginb.addActionListener(new ActionListener() { // ì‚¬ì› ì •ë³´ ë°˜í™˜ í•¨ìˆ˜ë¡œ ë¡œê·¸ì¸
 			public void actionPerformed(ActionEvent e) {
 				String Empid = EmpId.getText();
 				char epw[] = EmpPwField.getPassword();
@@ -66,13 +66,13 @@ public class EmpLogin extends JFrame { // »ç¿øÀÌ »ç¹øÀ¸·Î ·Î±×ÀÎÇÏ´Â ÆäÀÌÁö
 					EmpPw += (EmpPw.equals("")) ? "" + ch + "" : "" + ch + "";
 				}
 				if (EmpPw.equals("") || Empid.equals("")) {
-					JOptionPane.showMessageDialog(null, "ÇÊ¼ö ÀÔ·Â »çÇ×ÀÌ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "í•„ìˆ˜ ì…ë ¥ ì‚¬í•­ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 				} else {
 					String[] EmpData = tdb.EmpLogin(id, pw, Empid, EmpPw);
 					if (EmpData[0].equals("Not Found")) {
-						JOptionPane.showMessageDialog(null, "Á¸Àç ÇÏÁö ¾Ê´Â »ç¿øÀÔ´Ï´Ù.");
+						JOptionPane.showMessageDialog(null, "ì¡´ì¬ í•˜ì§€ ì•ŠëŠ” ì‚¬ì›ì…ë‹ˆë‹¤.");
 					} else if (EmpData[0].equals("Wrong Pw")) {
-						JOptionPane.showMessageDialog(null, "ºñ¹Ğ ¹øÈ£°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+						JOptionPane.showMessageDialog(null, "ë¹„ë°€ ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 					} else {
 						MainUi mainui = new MainUi();
 						mainui.setData(id, pw, EmpData);

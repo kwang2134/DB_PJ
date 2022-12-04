@@ -19,7 +19,7 @@ public class Testdb {
 	public Testdb() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("µå¶óÀÌ¹ö ÀûÀç ¼º°ø");
+			System.out.println("ë“œë¼ì´ë²„ ì ì¬ ì„±ê³µ");
 		} catch (ClassNotFoundException e) {
 			System.out.println("No Driver.");
 		}
@@ -29,7 +29,7 @@ public class Testdb {
 		int flag = 0;
 		try {
 			con = DriverManager.getConnection(url, id, password);
-			System.out.println("DB ¿¬°á ¼º°ø");
+			System.out.println("DB ì—°ê²° ì„±ê³µ");
 		} catch (SQLException e) {
 			System.out.println("Connection Fail");
 			flag = 1;
@@ -37,7 +37,7 @@ public class Testdb {
 		return flag;
 	}
 
-	public int isExistD(String id, String password) { // ±Ş¿© Á¤º¸°¡ Á¤»êµÇ¾î DB¿¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©ÇÏ´Â ÇÔ¼ö
+	public int isExistD(String id, String password) { // ê¸‰ì—¬ ì •ë³´ê°€ ì •ì‚°ë˜ì–´ DBì— ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬í•˜ëŠ” í•¨ìˆ˜
 		SimpleDateFormat month = new SimpleDateFormat("MM");
 		Date time = new Date();
 		String thisMonth = month.format(time);
@@ -48,7 +48,7 @@ public class Testdb {
 		boolean exist;
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "select ¿ù from ±Ş¿©Á¤º¸ where ¿ù = '" + preMonth + "'";
+			String sql = "select ì›” from ê¸‰ì—¬ì •ë³´ where ì›” = '" + preMonth + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			exist = rs.next();
 			if (exist)
@@ -62,7 +62,7 @@ public class Testdb {
 		return flag;
 	}
 
-	public int insertSalary(String id, String password) { // ±Ş¿© Á¤º¸ statement
+	public int insertSalary(String id, String password) { // ê¸‰ì—¬ ì •ë³´ statement
 		int count = 0;
 		SimpleDateFormat year = new SimpleDateFormat("YYYY");
 		SimpleDateFormat month = new SimpleDateFormat("MM");
@@ -77,7 +77,7 @@ public class Testdb {
 		DB_Connect(id, password);
 		try {
 			Statement stmt = con.createStatement();
-			String sql2 = "insert all into ±Ş¿©Á¤º¸ values (»ç¹ø,'" + forDbDate + "',null) select »ç¹ø from »ç¿ø";
+			String sql2 = "insert all into ê¸‰ì—¬ì •ë³´ values (ì‚¬ë²ˆ,'" + forDbDate + "',null) select ì‚¬ë²ˆ from ì‚¬ì›";
 			count = stmt.executeUpdate(sql2);
 			stmt.close();
 		} catch (SQLException e) {
@@ -86,8 +86,8 @@ public class Testdb {
 		return count;
 	}
 
-	public String[] EmpLogin(String id, String password, String EmpId, String EmpPw) { // »ç¿ø Á¤º¸ ¹İÈ¯ ÇÔ¼ö [0] »ç¹ø [1] ÀÌ¸§ [2]
-																						// // ºÎ¼­
+	public String[] EmpLogin(String id, String password, String EmpId, String EmpPw) { // ì‚¬ì› ì •ë³´ ë°˜í™˜ í•¨ìˆ˜ [0] ì‚¬ë²ˆ [1] ì´ë¦„ [2]
+																						// // ë¶€ì„œ
 		String EmpData[] = new String[3];
 		String EmpName = "";
 		String EmpDept = "";
@@ -96,18 +96,18 @@ public class Testdb {
 		boolean exist;
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "select »ç¹ø from »ç¿ø where »ç¹ø ='" + EmpId + "'";
+			String sql = "select ì‚¬ë²ˆ from ì‚¬ì› where ì‚¬ë²ˆ ='" + EmpId + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			exist = rs.next();
 			if (!exist) {
 				EmpId = "Not Found";
 			} else if (exist) {
-				String sql1 = "select ÀÌ¸§, ºÎ¼­, ºñ¹Ğ¹øÈ£ from »ç¿ø where »ç¹ø = '" + EmpId + "'";
+				String sql1 = "select ì´ë¦„, ë¶€ì„œ, ë¹„ë°€ë²ˆí˜¸ from ì‚¬ì› where ì‚¬ë²ˆ = '" + EmpId + "'";
 				ResultSet rs1 = stmt.executeQuery(sql1);
 				while (rs1.next()) {
-					EmpName = rs1.getString("ÀÌ¸§");
-					EmpDept = rs1.getString("ºÎ¼­");
-					EmpPwDB = rs1.getString("ºñ¹Ğ¹øÈ£");
+					EmpName = rs1.getString("ì´ë¦„");
+					EmpDept = rs1.getString("ë¶€ì„œ");
+					EmpPwDB = rs1.getString("ë¹„ë°€ë²ˆí˜¸");
 				}
 				if (!EmpPwDB.equals(EmpPw)) {
 					EmpId = "Wrong Pw";
@@ -126,11 +126,11 @@ public class Testdb {
 
 	}
 
-	public int attend(String id, String pw, String EmpId, String attendday, String attendtime) { // Ãâ±Ù preparedstatement
+	public int attend(String id, String pw, String EmpId, String attendday, String attendtime) { // ì¶œê·¼ preparedstatement
 		DB_Connect(id, pw);
 		int count = 0;
 		try {
-			String sql = "insert into ÃâÅğ±ÙÁ¤º¸ values (?,?,?,null,null,null)";
+			String sql = "insert into ì¶œí‡´ê·¼ì •ë³´ values (?,?,?,null,null,null)";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, EmpId);
 			pstmt.setString(2, attendday);
@@ -143,7 +143,7 @@ public class Testdb {
 		return count;
 	}
 
-	public void leave(String id, String pw, int EID, String leaveDate) { // Åğ±Ù callablestatement
+	public void leave(String id, String pw, int EID, String leaveDate) { // í‡´ê·¼ callablestatement
 		DB_Connect(id, pw);
 		try {
 			CallableStatement cstmt = con.prepareCall("{call WORKTIME_UPDATE(?,?)}");
@@ -156,11 +156,11 @@ public class Testdb {
 		}
 	}
 
-	public int absence(String id, String pw, String EmpId, String date, String reason) { // °á±Ù »çÀ¯ µî·Ï preparedstatement
+	public int absence(String id, String pw, String EmpId, String date, String reason) { // ê²°ê·¼ ì‚¬ìœ  ë“±ë¡ preparedstatement
 		DB_Connect(id, pw);
 		int count = 0;
 		try {
-			String sql = "insert into °á±ÙÁ¤º¸ values (?,?,?)";
+			String sql = "insert into ê²°ê·¼ì •ë³´ values (?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, EmpId);
 			pstmt.setString(2, date);
@@ -173,7 +173,7 @@ public class Testdb {
 		return count;
 	}
 
-	public void NoReason(String id, String pw, String date) { // ¹«´Ü °á±Ù ÇÁ·Î½ÃÀú È£Ãâ callablestatement
+	public void NoReason(String id, String pw, String date) { // ë¬´ë‹¨ ê²°ê·¼ í”„ë¡œì‹œì € í˜¸ì¶œ callablestatement
 		DB_Connect(id, pw);
 		try {
 			CallableStatement cstmt = con.prepareCall("{call ABSENCE_CHECK(?)}");
@@ -185,16 +185,16 @@ public class Testdb {
 		}
 	}
 
-	public DefaultTableModel PaySearchAll(String id, String pw, DefaultTableModel model) { // ±Ş¿© È­¸é ÀüÃ¼ Á÷¿ø ¿­¶÷ statement
+	public DefaultTableModel PaySearchAll(String id, String pw, DefaultTableModel model) { // ê¸‰ì—¬ í™”ë©´ ì „ì²´ ì§ì› ì—´ëŒ statement
 		DB_Connect(id, pw);
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "select * from ±Ş¿©Á¤º¸";
+			String sql = "select * from ê¸‰ì—¬ì •ë³´";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String empNum = rs.getString("»ç¹ø");
-				String mon = rs.getString("¿ù");
-				String pay = rs.getString("±İ¾×");
+				String empNum = rs.getString("ì‚¬ë²ˆ");
+				String mon = rs.getString("ì›”");
+				String pay = rs.getString("ê¸ˆì•¡");
 
 				Object obj[] = { empNum, mon, pay };
 				model.addRow(obj);
@@ -207,23 +207,23 @@ public class Testdb {
 		return model;
 	}
 
-	public DefaultTableModel PaySearch(String id, String pw, String type, String empInfo, DefaultTableModel model) { // ±Ş¿©
-																														// °ü¸®
-																														// Å×ÀÌºí
-																														// Æ¯Á¤
-																														// Á÷¿ø
-																														// ¿­¶÷
+	public DefaultTableModel PaySearch(String id, String pw, String type, String empInfo, DefaultTableModel model) { // ê¸‰ì—¬
+																														// ê´€ë¦¬
+																														// í…Œì´ë¸”
+																														// íŠ¹ì •
+																														// ì§ì›
+																														// ì—´ëŒ
 																														// preparedStatement
 		DB_Connect(id, pw);
 		try {
-			String sql = "select ±Ş¿©Á¤º¸.»ç¹ø, ¿ù, ±İ¾× from ±Ş¿©Á¤º¸, »ç¿ø where »ç¿ø.»ç¹ø = ±Ş¿©Á¤º¸.»ç¹ø and »ç¿ø."+ type +" = ?";
+			String sql = "select ê¸‰ì—¬ì •ë³´.ì‚¬ë²ˆ, ì›”, ê¸ˆì•¡ from ê¸‰ì—¬ì •ë³´, ì‚¬ì› where ì‚¬ì›.ì‚¬ë²ˆ = ê¸‰ì—¬ì •ë³´.ì‚¬ë²ˆ and ì‚¬ì›."+ type +" = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, empInfo);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				String empNum = rs.getString("»ç¹ø");
-				String mon = rs.getString("¿ù");
-				String pay = rs.getString("±İ¾×");
+				String empNum = rs.getString("ì‚¬ë²ˆ");
+				String mon = rs.getString("ì›”");
+				String pay = rs.getString("ê¸ˆì•¡");
 
 				Object obj[] = { empNum, mon, pay };
 				model.addRow(obj);
@@ -236,17 +236,57 @@ public class Testdb {
 		return model;
 	}
 
-	/*
-	 * public DefaultTableModel SearchAll(String id, String pw, DefaultTableModel
-	 * model) { // ÃâÅğ±ÙÁ¤º¸ È­¸é ÀüÃ¼ Á÷¿ø ¿­¶÷ statement DB_Connect(id, pw); try { Statement
-	 * stmt = con.createStatement(); String sql = "select * from ÃâÅğ±ÙÁ¤º¸"; ResultSet
-	 * rs = stmt.executeQuery(sql); while (rs.next()) { String empNum =
-	 * rs.getString("»ç¹ø"); String attD = rs.getString("Ãâ±ÙÀÏ"); String attT =
-	 * rs.getString("Ãâ±Ù½Ã°£"); String leaveT = rs.getString("Åğ±Ù½Ã°£"); String workT =
-	 * rs.getString("±Ù¹«½Ã°£"); String overT = rs.getString("¿¬Àå±Ù¹«");
-	 * 
-	 * Object obj[] = { empNum, attD, attT, leaveT, workT, overT };
-	 * model.addRow(obj); } stmt.close(); rs.close(); } catch (SQLException e) {
-	 * e.printStackTrace(); } return model; }
-	 */
+
+	public DefaultTableModel SearchAll(String id, String pw, DefaultTableModel model) { // ì¶œí‡´ê·¼ì •ë³´ í™”ë©´ ì „ì²´ ì§ì› ì—´ëŒ statement
+		DB_Connect(id, pw);
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "select * from ì¶œí‡´ê·¼ì •ë³´";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String empNum = rs.getString("ì‚¬ë²ˆ");
+				String attD = rs.getString("ì¶œê·¼ì¼");
+				String attT = rs.getString("ì¶œê·¼ì‹œê°„");
+				String leaveT = rs.getString("í‡´ê·¼ì‹œê°„");
+				String workT = rs.getString("ê·¼ë¬´ì‹œê°„");
+				String overT = rs.getString("ì—°ì¥ê·¼ë¬´");
+
+				Object obj[] = { empNum, attD, attT, leaveT, workT, overT };
+				model.addRow(obj);
+			}
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	public DefaultTableModel Search(String id, String pw, String type, String empInfo, DefaultTableModel model) { // ì¶œí‡´ê·¼ì •ë³´ í™”ë©´ íŠ¹ì • ì§ì› ì—´ëŒ
+
+		DB_Connect(id, pw);
+		try {
+			String sql = "select ì¶œí‡´ê·¼ì •ë³´.ì‚¬ë²ˆ, ì¶œê·¼ì¼, ì¶œê·¼ì‹œê°„, í‡´ê·¼ì‹œê°„, ê·¼ë¬´ì‹œê°„, ì—°ì¥ê·¼ë¬´ from ì¶œí‡´ê·¼ì •ë³´, ì‚¬ì› where ì‚¬ì›.ì‚¬ë²ˆ = ì¶œí‡´ê·¼ì •ë³´.ì‚¬ë²ˆ and ì‚¬ì›."+ type +" = ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, empInfo);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String empNum = rs.getString("ì‚¬ë²ˆ");
+				String attD = rs.getString("ì¶œê·¼ì¼");
+				String attT = rs.getString("ì¶œê·¼ì‹œê°„");
+				String leaveT = rs.getString("í‡´ê·¼ì‹œê°„");
+				String workT = rs.getString("ê·¼ë¬´ì‹œê°„");
+				String overT = rs.getString("ì—°ì¥ê·¼ë¬´");
+
+				Object obj[] = { empNum, attD, attT, leaveT, workT, overT };
+				model.addRow(obj);
+			}
+			pstmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+
 }

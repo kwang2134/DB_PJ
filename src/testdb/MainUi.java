@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
+public class MainUi extends JFrame { // ì‚¬ì› ë©”ì¸ í˜ì´ì§€
 	JFrame jframe = new JFrame();
 	JPanel jpanel = new JPanel();
 	JButton Salarybtn;
@@ -37,44 +37,44 @@ public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
 		Testdb tdb = new Testdb();
 		jframe.setSize(800, 800);
 		jframe.setLocationRelativeTo(null);
-		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Ã¢ ´İ±â ¹öÆ° ´©¸£¸é ²¨Áö°Ô ¼³Á¤
+		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ì°½ ë‹«ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´ êº¼ì§€ê²Œ ì„¤ì •
 		jframe.setVisible(true);
 
 		jpanel.setLayout(null);
 		jframe.add(jpanel);
 
-		Font MainUiFontsz = new Font("µ¸¿ò", Font.PLAIN, 30);
-		jpanel.add(MainUiLabel = new JLabel("ÃâÅğ±Ù ½Ã½ºÅÛ"));
+		Font MainUiFontsz = new Font("ë‹ì›€", Font.PLAIN, 30);
+		jpanel.add(MainUiLabel = new JLabel("ì¶œí‡´ê·¼ ì‹œìŠ¤í…œ"));
 		MainUiLabel.setFont(MainUiFontsz);
 		MainUiLabel.setBounds(300, 150, 300, 100);
 
-		jpanel.add(EmpNameLabel = new JLabel(EmpData[1] + "´Ô ¹İ°©½À´Ï´Ù"));
+		jpanel.add(EmpNameLabel = new JLabel(EmpData[1] + "ë‹˜ ë°˜ê°‘ìŠµë‹ˆë‹¤"));
 		EmpNameLabel.setBounds(10, 10, 150, 50);
 		jpanel.add(attendtimeLabel = new JLabel(attendtime));
 		attendtimeLabel.setBounds(400, 350, 100, 50);
 		jpanel.add(leavetimeLabel = new JLabel(leavetime));
 		leavetimeLabel.setBounds(400, 450, 100, 50);
 
-		jpanel.add(Salarybtn = new JButton("±Ş¿©Á¤»ê"));
+		jpanel.add(Salarybtn = new JButton("ê¸‰ì—¬ì •ì‚°"));
 		Salarybtn.setBounds(600, 70, 100, 30);
-		jpanel.add(EmpInfo = new JButton("»ç¿ø Á¤º¸"));
-		EmpInfo.setBounds(600, 70, 100, 30);
-		jpanel.add(AbsenceCheckb = new JButton("¹«´Ü °á±Ù Ã¼Å©"));
+		jpanel.add(EmpInfo = new JButton("ê·¼ë¬´ ê¸°ë¡ ê´€ë¦¬"));
+		EmpInfo.setBounds(600, 70, 150, 30);
+		jpanel.add(AbsenceCheckb = new JButton("ë¬´ë‹¨ ê²°ê·¼ ì²´í¬"));
 		AbsenceCheckb.setBounds(600, 120, 150, 30);
-		jpanel.add(attendb = new JButton("Ãâ±Ù"));
+		jpanel.add(attendb = new JButton("ì¶œê·¼"));
 		attendb.setBounds(250, 350, 100, 50);
-		jpanel.add(leaveb = new JButton("Åğ±Ù"));
+		jpanel.add(leaveb = new JButton("í‡´ê·¼"));
 		leaveb.setBounds(250, 450, 100, 50);
-		jpanel.add(Logout = new JButton("·Î±×¾Æ¿ô"));
+		jpanel.add(Logout = new JButton("ë¡œê·¸ì•„ì›ƒ"));
 		Logout.setBounds(350, 650, 100, 50);
-		jpanel.add(Absenceb = new JButton("°á±Ù »çÀ¯ µî·Ï"));
+		jpanel.add(Absenceb = new JButton("ê²°ê·¼ ì‚¬ìœ  ë“±ë¡"));
 		Absenceb.setBounds(600, 600, 150, 50);
 
-		if (EmpData[2].equals("ÀÎ»ç")) {
+		if (EmpData[2].equals("ì¸ì‚¬")) {
 			EmpInfo.setVisible(true);
 			AbsenceCheckb.setVisible(true);
 			Salarybtn.setVisible(false);
-		} else if (EmpData[2].equals("Àç¹«")) {
+		} else if (EmpData[2].equals("ì¬ë¬´")) {
 			Salarybtn.setVisible(true);
 			AbsenceCheckb.setVisible(false);
 			EmpInfo.setVisible(false);
@@ -87,7 +87,7 @@ public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
 			AbsenceCheckb.setVisible(false);
 			EmpInfo.setVisible(false);
 		}
-		attendb.addActionListener(new ActionListener() { // Ãâ±Ù ¹öÆ° ÀÌº¥Æ®
+		attendb.addActionListener(new ActionListener() { // ì¶œê·¼ ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat attendt = new SimpleDateFormat("HH:mm");
 				SimpleDateFormat attendDb = new SimpleDateFormat("YYYY/MM/dd");
@@ -98,15 +98,15 @@ public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
 				attendtimeLabel.setText(attendtime);
 				int flag = tdb.attend(id, pw, EmpData[0], attendDateDb, attendtime);
 				if (flag == 1) {
-					JOptionPane.showMessageDialog(null, "Ãâ±ÙÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+					JOptionPane.showMessageDialog(null, "ì¶œê·¼ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤");
 				} else {
-					JOptionPane.showMessageDialog(null, "ÀÌ¹Ì Ãâ±ÙÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+					JOptionPane.showMessageDialog(null, "ì´ë¯¸ ì¶œê·¼ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤");
 				}
 
 			}
 		});
 
-		leaveb.addActionListener(new ActionListener() { // Åğ±Ù ¹öÆ° ÀÌº¥Æ®
+		leaveb.addActionListener(new ActionListener() { // í‡´ê·¼ ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat leavet = new SimpleDateFormat("HH:mm");
 				SimpleDateFormat leaveDb = new SimpleDateFormat("YYYY/MM/dd");
@@ -116,19 +116,20 @@ public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
 				leaveDateDb = leaveDb.format(time);
 				leavetimeLabel.setText(leavetime);
 				int eid = Integer.parseInt(EmpData[0]);
-				tdb.leave(id, pw, eid, leaveDateDb); // DB ÇÁ·Î½ÃÀú È£Ãâ ÇÔ¼ö
+				tdb.leave(id, pw, eid, leaveDateDb); // DB í”„ë¡œì‹œì € í˜¸ì¶œ í•¨ìˆ˜
 			}
 		});
 
-		Salarybtn.addActionListener(new ActionListener() { // ±Ş¿© Á¤»ê ÆäÀÌÁö·Î ÀÌµ¿
+		Salarybtn.addActionListener(new ActionListener() { // ê¸‰ì—¬ ì •ì‚° í˜ì´ì§€ë¡œ ì´ë™
 			public void actionPerformed(ActionEvent e) {
 				jframe.dispose();
 				PayUI payui = new PayUI();
 				payui.setSysIdPw(id, pw, EmpData);
+				payui.PayUI_init();
 			}
 
 		});
-		AbsenceCheckb.addActionListener(new ActionListener() { // Ãâ±Ù ¹öÆ° ÀÌº¥Æ®
+		AbsenceCheckb.addActionListener(new ActionListener() { // ì¶œê·¼ ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				AbsenceCheckUI absUI = new AbsenceCheckUI();
 				absUI.setSysIdPw(id, pw);
@@ -136,7 +137,7 @@ public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
 			}
 		});
 
-		Logout.addActionListener(new ActionListener() { // ·Î±×¾Æ¿ô »ç¿ø ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+		Logout.addActionListener(new ActionListener() { // ë¡œê·¸ì•„ì›ƒ ì‚¬ì› ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
 			public void actionPerformed(ActionEvent e) {
 				jframe.dispose();
 				EmpLogin emplog = new EmpLogin();
@@ -145,7 +146,7 @@ public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
 			}
 		});
 
-		Absenceb.addActionListener(new ActionListener() { // °á±Ù »çÀ¯ ÆäÀÌÁö ÀÌµ¿
+		Absenceb.addActionListener(new ActionListener() { // ê²°ê·¼ ì‚¬ìœ  í˜ì´ì§€ ì´ë™
 			public void actionPerformed(ActionEvent e) {
 				AbsenceR abui = new AbsenceR();
 				abui.setSysIdPw(id, pw, EmpData[0]);
@@ -153,16 +154,17 @@ public class MainUi extends JFrame { // »ç¿ø ¸ŞÀÎ ÆäÀÌÁö
 			}
 		});
 
-		EmpInfo.addActionListener(new ActionListener() { // Á÷¿ø °ü¸® ÆäÀÌÁö ÀÌµ¿
+		EmpInfo.addActionListener(new ActionListener() { // ê·¼ë¬´ ê¸°ë¡ ê´€ë¦¬ í˜ì´ì§€ ì´ë™
 			public void actionPerformed(ActionEvent e) {
 				jframe.dispose();
 				EmpInfoUI empui = new EmpInfoUI();
 				empui.setSysIdPw(id, pw, EmpData);
+				empui.EmpInfoUI_init();
 			}
 		});
 	}
 
-	public void setData(String sid, String spw, String[] empdata) { // DB id,pw Á¤º¸
+	public void setData(String sid, String spw, String[] empdata) { // DB id,pw ì •ë³´
 		this.id = sid;
 		this.pw = spw;
 		this.EmpData = empdata;

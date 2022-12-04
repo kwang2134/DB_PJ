@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class SysLogin extends JFrame { // DB·Î±×ÀÎÀ» À§ÇÑ ÆäÀÌÁö
+public class SysLogin extends JFrame { // DBë¡œê·¸ì¸ì„ ìœ„í•œ í˜ì´ì§€
 	JFrame jframe = new JFrame();
 	JPanel jpanel = new JPanel();
 	JTextField SysId = new JTextField();
@@ -30,11 +30,11 @@ public class SysLogin extends JFrame { // DB·Î±×ÀÎÀ» À§ÇÑ ÆäÀÌÁö
 	}
 
 	public void SysLogin_init() {
-		jframe.setSize(800, 800); // ÀüÃ¼ Ã¢ Å©±â
+		jframe.setSize(800, 800); // ì „ì²´ ì°½ í¬ê¸°
 		jframe.setLocationRelativeTo(null);
-		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Ã¢ ´İ±â ¹öÆ° ´©¸£¸é ²¨Áö°Ô ¼³Á¤
+		jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ì°½ ë‹«ê¸° ë²„íŠ¼ ëˆ„ë¥´ë©´ êº¼ì§€ê²Œ ì„¤ì •
 		jframe.setVisible(true);
-		Font SysLogFontsz = new Font("µ¸¿ò", Font.PLAIN, 30);
+		Font SysLogFontsz = new Font("ë‹ì›€", Font.PLAIN, 30);
 
 		jpanel.setLayout(null);
 		jframe.add(jpanel);
@@ -43,7 +43,7 @@ public class SysLogin extends JFrame { // DB·Î±×ÀÎÀ» À§ÇÑ ÆäÀÌÁö
 		IdLabel.setBounds(300, 350, 30, 30);
 		jpanel.add(PwLabel = new JLabel("PW"));
 		PwLabel.setBounds(300, 400, 30, 30);
-		jpanel.add(SysLog = new JLabel("½Ã½ºÅÛ ·Î±×ÀÎ"));
+		jpanel.add(SysLog = new JLabel("ì‹œìŠ¤í…œ ë¡œê·¸ì¸"));
 		SysLog.setFont(SysLogFontsz);
 		SysLog.setBounds(300, 150, 300, 200);
 		jpanel.add(SysId = new JTextField());
@@ -51,12 +51,12 @@ public class SysLogin extends JFrame { // DB·Î±×ÀÎÀ» À§ÇÑ ÆäÀÌÁö
 		jpanel.add(SysPw = new JPasswordField());
 		SysPw.setEchoChar('*');
 		SysPw.setBounds(350, 400, 150, 30);
-		jpanel.add(SysLoginb = new JButton("·Î±×ÀÎ"));
+		jpanel.add(SysLoginb = new JButton("ë¡œê·¸ì¸"));
 		SysLoginb.setBounds(350, 450, 150, 30);
 
 		Testdb tdb = new Testdb();
 
-		SysLoginb.addActionListener(new ActionListener() { // DB·Î±×ÀÎ ¹öÆ° ÀÌº¥Æ®
+		SysLoginb.addActionListener(new ActionListener() { // DBë¡œê·¸ì¸ ë²„íŠ¼ ì´ë²¤íŠ¸
 			public void actionPerformed(ActionEvent e) {
 				id = SysId.getText();
 				char spw[] = SysPw.getPassword();
@@ -69,11 +69,11 @@ public class SysLogin extends JFrame { // DB·Î±×ÀÎÀ» À§ÇÑ ÆäÀÌÁö
 				int flag = tdb.DB_Connect(id, pw);
 
 				if (flag == 1) {
-					JOptionPane.showMessageDialog(null, "ID ¶Ç´Â PW°¡ Àß¸øµÇ¾ú½À´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "ID ë˜ëŠ” PWê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} else {
 					jframe.dispose();
 					EmpLogin emplog = new EmpLogin();
-					emplog.setSysIdPw(id, pw); // DB id,pw Á¤º¸ ³Ñ°ÜÁÖ´Â ºÎºĞ
+					emplog.setSysIdPw(id, pw); // DB id,pw ì •ë³´ ë„˜ê²¨ì£¼ëŠ” ë¶€ë¶„
 					emplog.EmpLogin_init();
 					
 				}
