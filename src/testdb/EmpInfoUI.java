@@ -78,7 +78,18 @@ JFrame frame = new JFrame();
 		editBtn = new JButton("수정");
 		editBtn.addActionListener(new ActionListener() { //수정 버튼 이벤트
 			public void actionPerformed(ActionEvent e) {
-				
+				int col = empTable.getSelectedColumn();
+				int row = empTable.getSelectedRow();
+				String type = empTable.getColumnName(col);
+				String empInfo = searchTextField.getText();
+				int empNum = Integer.parseInt((String) empTable.getValueAt(row, 0));
+				String date = (String) empTable.getValueAt(row, 1);
+				if (col == 0 || col == 1) {
+					JOptionPane.showMessageDialog(null, "사번과 날짜는 수정할 수 없습니다.");
+				} else {
+					empTable.setValueAt(empInfo, row, col);
+					tdb.UpdateEmpInfo(id, pw, type, empInfo, empNum, date);
+				}
 			}
 		});
 		functionPane.add(editBtn);

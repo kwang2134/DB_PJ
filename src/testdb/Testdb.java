@@ -288,5 +288,18 @@ public class Testdb {
 		}
 		return model;
 	}
+	
+	public void UpdateEmpInfo(String id, String pw, String type, String empInfo, int empNum, String date) {	// 출퇴근정보 수정
+		DB_Connect(id, pw);
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "update 출퇴근정보 set " + type + " = '" + empInfo + "' where 사번 = " + empNum + " and 출근일 = '"
+					+ date + "'";
+			stmt.executeQuery(sql);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
